@@ -1,0 +1,182 @@
+/* navbar */
+:root{
+  --main-color:#ff4e19;
+}
+/* تنسيق أيقونة الشعار */
+.brand-icon {
+  width: 45px;
+  height: 45px;
+  background-color: var(--main-color); /* لون خلفية الأيقونة كما في التصميم */
+  font-size: 1.2rem;
+}
+
+/* إلغاء الخط السفلي عند التأشير على الشعار */
+.navbar-brand {
+  text-decoration: none;
+}
+.nav-icon-link:hover {
+  color: var(--main-color) !important;
+}
+
+
+/* section */
+.recipe-section{
+background-color: #fffceb;
+}
+.card
+{
+  height:auto;
+  padding-bottom: 20px;
+  
+}
+/* في الشاشات الصغيرة (الموبايل): إعطاء ارتفاع ثابت للصورة لتأخذ مساحتها وتظهر التفاصيل تحتها */
+.recipe-img-container {
+  height: 380px; 
+}
+
+.custom-scroll{
+  max-height: 250px;
+  overflow-y: auto;
+   background-color: #fffceb;
+}
+/* في الشاشات الكبيرة (ابتداءً من اللابتوب): الصورة تأخذ 100% من ارتفاع العمود */
+@media (min-width: 768px) {
+  .recipe-img-container {
+    height: 100%;
+    min-height: 450px;
+  }
+}
+/* ارتفاع ومظهر الصورة */
+.recipe-img {
+  height:  max-content;
+}
+
+/* الأيقونات الدائرية للوقت والوجبات */
+.icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* أرقام المكونات الدائرية البرتقالية */
+.ingredient-number {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f39c12 !important;
+  color: white !important;
+  font-size: 0.75rem;
+}
+
+/* تخصيص زر الـ Tab المفعّل */
+.nav-tabs .nav-link.active {
+  color: #e74c3c !important;
+}
+
+/* تنسيق التبويب المفعّل (Active Tab) */
+.nav-tabs .nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-tabs .nav-link.active {
+  color: #e65100 !important; /* لون النص البرتقالي */
+}
+
+/* خط برتقالي تحت التبويب المفعّل */
+.nav-tabs .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e65100;
+  border-radius: 2px;
+}
+
+/* تصميم الدوائر البرتقالية للأرقام */
+.step-number {
+  width: 28px;
+  height: 28px;
+  background-color: #e67e22 !important;
+  color: white !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* التمرير (Scroll) */
+.custom-scroll {
+  max-height: 250px;
+  overflow-y: auto;
+}
+.custom-scroll2 {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* تنسيق مربعات الأيقونات الغذائية */
+.nutri-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+/* لون مخصص للأيقونة البنفسجية (Sodium) */
+.text-purple {
+  color: #6f42c1 !important;
+}
+
+.bg-purple {
+  background-color: #6f42c1 !important;
+}
+
+#tips div{
+ 
+  background-color: #fffceb;
+  border:4px solid #e67e22;
+  border-top: 0;
+  border-bottom: 0;
+  border-right: 0;
+}
+#tips i{
+  padding-right: 3px;
+  color: var(--main-color);
+}
+#tips span{
+   color: gray !important;
+}
+
+
+/* تنسيق زر Try Another Recipe */
+.btn-try-another {
+  background-color:var(--main-color); /* اللون البرتقالي المرجاني */
+  border: none;
+  transition: all 0.3s ease;
+}
+
+/* تأثير عند التحويم بالماوس (Hover) */
+.btn-try-another:hover {
+  background-color: #d5552b;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(230, 103, 61, 0.3) !important;
+}
+
+/* تأثير عند الضغط */
+.btn-try-another:active {
+  transform: translateY(0);
+}
