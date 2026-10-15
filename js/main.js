@@ -1,298 +1,319 @@
 // 1. Elements Selection
-var recipe_rating = document.getElementsByClassName('rating')[0];
-var recipe_img = document.getElementsByClassName('recipe-img')[0];
+var contactNameInput = document.getElementById("contactNameInput");
+var contactPhoneInput = document.getElementById("contactPhoneInput");
+var contactEmailInput = document.getElementById("contactEmailInput");
+var contactAddressInput = document.getElementById("contactAddressInput");
+var contactGroupInput = document.getElementById("contactGroup");
+var contactNotesInput = document.getElementById("contactNotesInput");
+var searchInput = document.getElementById("searchInput");
 
-var recipe_prepTime =document.getElementsByClassName('prepTime')[0];
-var recipe_cookTime =document.getElementsByClassName('cookTime')[0];
-var recipe_servings =document.getElementsByClassName('servings')[0];
+var ContactList = [];
+var currentIndex = null; 
 
-var recipe_title = document.getElementsByClassName('title')[0];
-var recipe_badge1 = document.getElementsByClassName('badge1')[0];
-var recipe_badge2 = document.getElementsByClassName('badge2')[0];
-var recipe_description = document.getElementsByClassName('description')[0];
-
-var ingredients_container = document.querySelector('#ingredients ul');
-var instructions_container = document.querySelector('#instructions ol');
-var tips_container = document.querySelector('#tips');
-var nutrition_tab = document.querySelector('#nutrition');
-
-var btn_try_another = document.querySelector('.btn-try-another');
-
-// 2. Array of Recips
-const recipes = [
-  {
-    title: "Lasagna Bolognese",
-    rating: "4.9 (478 reviews)",
-    image: "./images/hero-img.png",
-    badge1: "Intermediate",
-    badge2: "Mediterranean",
-    description: "Layered Italian pasta with rich meat sauce and béchamel.",
-    prepTime: "30 min",
-    cookTime: "90 min",
-    servings: "4 people",
-    ingredients: [
-      "200g lasagna sheets",
-      "500g minced beef",
-      "2 cups béchamel sauce",
-      "1 cup tomato puree",
-      "100g parmesan cheese"
-    ],
-    instructions: [
-      "Prepare the meat sauce by cooking minced beef with tomato puree and seasonings.",
-      "Boil lasagna sheets according to package instructions until al dente.",
-      "Layer meat sauce, béchamel, and lasagna sheets in a baking dish.",
-      "Top with generous parmesan cheese and bake at 180°C for 45 minutes."
-    ],
-    nutrition: {
-      calories: "680 kcal",
-      protein: "35g",
-      carbs: "58g",
-      fat: "32g",
-      fiber: "4g",
-      sodium: "950mg"
-    },
-    tips: [
-      "Let the lasagna rest for 15 minutes before cutting to hold its shape.",
-      "Use fresh mozzarella between layers for extra creaminess.",
-      "Make the meat sauce a day ahead for richer flavor."
-    ]
-  },
-  {
-    title: "Pad Thai",
-    rating: "4.8 (320 reviews)",
-    image: "./images/hero-img.png",
-    badge1: "Easy",
-    badge2: "Asian",
-    description: "Classic stir-fried Thai rice noodles with shrimp, tofu, and peanuts.",
-    prepTime: "15 min",
-    cookTime: "20 min",
-    servings: "2 people",
-    ingredients: [
-      "200g rice noodles",
-      "200g shrimp, peeled",
-      "2 eggs",
-      "3 tbsp tamarind paste",
-      "2 tbsp fish sauce",
-      "1 tbsp palm sugar"
-    ],
-    instructions: [
-      "Soak rice noodles in warm water for 30 minutes. Drain and set aside.",
-      "Mix tamarind paste, fish sauce, and palm sugar to make the sauce.",
-      "Heat wok over high heat. Scramble eggs and set aside.",
-      "Cook shrimp until pink. Add noodles and sauce, toss for 2-3 minutes."
-    ],
-    nutrition: {
-      calories: "540 kcal",
-      protein: "32g",
-      carbs: "62g",
-      fat: "16g",
-      fiber: "4g",
-      sodium: "1120mg"
-    },
-    tips: [
-      "Don't oversoak noodles or they'll be mushy.",
-      "Cook on high heat for authentic wok flavor.",
-      "Balance sweet, sour, and salty flavors.",
-      "Prepare all ingredients before starting to cook."
-    ]
-  },
-  {
-    title: "Chicken Tikka Masala",
-    rating: "4.9 (512 reviews)",
-    image: "./images/meal-5.jpg",
-    badge1: "Intermediate",
-    badge2: "Indian",
-    description: "Roasted marinated chicken chunks in a spiced, creamy tomato sauce.",
-    prepTime: "20 min",
-    cookTime: "30 min",
-    servings: "4 people",
-    ingredients: [
-      "500g chicken breast",
-      "1 cup yogurt",
-      "1 tbsp garam masala",
-      "1 cup tomato puree",
-      "1/2 cup heavy cream"
-    ],
-    instructions: [
-      "Marinate chicken pieces in yogurt and spices for at least 30 minutes.",
-      "Grill or sear chicken until charred and cooked through.",
-      "Simmer tomato puree with cream and garam masala until thickened.",
-      "Add chicken to the sauce and simmer for 10 minutes."
-    ],
-    nutrition: {
-      calories: "610 kcal",
-      protein: "42g",
-      carbs: "24g",
-      fat: "38g",
-      fiber: "3g",
-      sodium: "880mg"
-    },
-    tips: [
-      "Marinate chicken overnight for maximum flavor.",
-      "Use heavy cream for the authentic rich texture.",
-      "Garnish with fresh cilantro before serving."
-    ]
-  },
-  {
-    title: "Classic Beef Burger",
-    rating: "4.7 (210 reviews)",
-    image: "./images/meal-3.jpg",
-    badge1: "Easy",
-    badge2: "American",
-    description: "Juicy beef patty topped with fresh lettuce, cheddar, and house sauce.",
-    prepTime: "20 min",
-    cookTime: "10 min",
-    servings: "5 people",
-    ingredients: [
-      "2 beef patties",
-      "2 burger buns",
-      "2 slices cheddar cheese",
-      "Lettuce & tomato",
-      "2 tbsp burger sauce"
-    ],
-    instructions: [
-      "Season beef patties generously with salt and pepper.",
-      "Sear patties on a hot skillet for 3-4 minutes per side.",
-      "Melt cheddar cheese over patties in the last minute of cooking.",
-      "Toast burger buns and assemble with lettuce, tomato, and burger sauce."
-    ],
-    nutrition: {
-      calories: "720 kcal",
-      protein: "45g",
-      carbs: "48g",
-      fat: "40g",
-      fiber: "3g",
-      sodium: "1050mg"
-    },
-    tips: [
-      "Don't press down on patties while cooking to keep juices inside.",
-      "Use 80/20 ground beef for optimal juiciness.",
-      "Toast buns with a little butter."
-    ]
-  },
-  {
-    title: "Greek Salad",
-    rating: "4.5 (140 reviews)",
-    image: "./images/photo-1546793665-c74683f339c1.jfif",
-    badge1: "Easy",
-    badge2: "Mediterranean",
-    description: "Crisp cucumbers, tomatoes, olives, and feta cheese drizzled with olive oil.",
-    prepTime: "10 min",
-    cookTime: "0 min",
-    servings: "4 people",
-    ingredients: [
-      "2 cucumbers, sliced",
-      "3 tomatoes, diced",
-      "100g feta cheese",
-      "Black olives",
-      "2 tbsp extra virgin olive oil"
-    ],
-    instructions: [
-      "Chop cucumbers, tomatoes, and red onion into bite-sized pieces.",
-      "Combine vegetables in a large salad bowl with black olives.",
-      "Top with a slab of feta cheese and sprinkle dried oregano.",
-      "Drizzle extra virgin olive oil and lemon juice just before serving."
-    ],
-    nutrition: {
-      calories: "310 kcal",
-      protein: "8g",
-      carbs: "14g",
-      fat: "25g",
-      fiber: "4g",
-      sodium: "620mg"
-    },
-    tips: [
-      "Use high-quality extra virgin olive oil for the best taste.",
-      "Keep feta cheese in large blocks rather than crumbling it.",
-      "Do not add lettuce for traditional Greek style."
-    ]
-  }
-];
-
-// 3. Function to get a random recipe
-function generateNewItem() {
-  var randomNumber = Math.floor(Math.random()* recipes.length);
-  return recipes[randomNumber];
+if(localStorage.getItem('ContactList') != null) {   
+    ContactList = JSON.parse(localStorage.getItem('ContactList'));
+    displayAllContacts(); 
 }
 
-// 4. Function to Display Recipe
-function DisplayRecipe() {
-  var recipetodisplay = generateNewItem();
-
-   recipe_title.innerHTML = recipetodisplay.title;
-   recipe_badge1.innerHTML = recipetodisplay.badge1;
-   recipe_badge2.innerHTML = recipetodisplay.badge2;
-   recipe_description.innerHTML = recipetodisplay.description;
-   recipe_img.src = recipetodisplay.image;
-   recipe_rating.innerHTML = recipetodisplay.rating;
-   recipe_prepTime.innerHTML = recipetodisplay.prepTime;
-   recipe_cookTime.innerHTML = recipetodisplay.cookTime;
-  recipe_servings.innerHTML = recipetodisplay.servings;
-
-
-
-  // (Ingredients)
-  if (ingredients_container) {
-    var ingredientsHTML = '';
-    for (var i = 0; i < recipetodisplay.ingredients.length; i++) {
-      ingredientsHTML += `
-        <li class="d-flex align-items-center gap-2">
-          <span class="badge rounded-circle step-number">${i + 1}</span> 
-          ${recipetodisplay.ingredients[i]}
-        </li>
-      `;
-    }
-    ingredients_container.innerHTML = ingredientsHTML;
+function AddContact() {
+var namevalid=validateContact(contactNameInput);
+var phonevalid=validateContact(contactPhoneInput);
+var emailval=contactEmailInput.value.trim();
+var Emailvalid = (emailval ==="") ||validateContact(contactEmailInput);
+ 
+  if(!namevalid||!phonevalid||!Emailvalid)
+  {
+     Swal.fire({
+        icon:'error',
+        title:'Oops.....',
+        text:'Please Fill in All Required fields correctly...',
+        
+     });
+     return;
   }
 
-  // (Instructions)
-  if (instructions_container && recipetodisplay.instructions) {
-    var instructionsHTML = '';
-    for (var j = 0; j < recipetodisplay.instructions.length; j++) {
-      instructionsHTML += `
-        <li class="d-flex align-items-center gap-3">
-          <span class="badge p-4 rounded-2 step-number flex-shrink-0">${j + 1}</span>
-          <span class="text-black small mt-1">${recipetodisplay.instructions[j]}</span>
-        </li>
-      `;
-    }
-    instructions_container.innerHTML = instructionsHTML;
-  }
+    var isFav = document.getElementById('isFavorite').checked;
+    var isEmg = document.getElementById('isEmergency').checked;
 
-  // (Nutrition)
-  if (nutrition_tab && recipetodisplay.nutrition) {
-    var nutritionValues = [                      //object
-      recipetodisplay.nutrition.calories,
-      recipetodisplay.nutrition.protein,
-      recipetodisplay.nutrition.carbs,
-      recipetodisplay.nutrition.fat,
-      recipetodisplay.nutrition.fiber,
-      recipetodisplay.nutrition.sodium
-    ];
+    var Contact = {
+        name: contactNameInput.value,
+        Phone: contactPhoneInput.value,
+        Email: contactEmailInput.value,
+        Address: contactAddressInput.value,
+        Group: contactGroupInput.value,
+        Notes: contactNotesInput.value,
+        favorite: isFav,
+        emergency: isEmg
+    };
 
-    var valueSpans = nutrition_tab.querySelectorAll('.fw-bold.text-dark.small');
-    for (var k = 0; k < valueSpans.length; k++) {
-      if (nutritionValues[k]) {
-        valueSpans[k].textContent = nutritionValues[k];
-      }
+    if (currentIndex !== null) {
+        ContactList[currentIndex] = Contact;
+        currentIndex = null; 
+        
+        var saveBtn = document.getElementById("saveContactBtn");
+        if (saveBtn) saveBtn.innerHTML = "Add Contact";
+    } else {
+        ContactList.push(Contact);
     }
-  }
 
-  // (Chef's Tips)
-  if (tips_container && recipetodisplay.tips) {
-    var tipsHTML = '';
-    for (var m = 0; m < recipetodisplay.tips.length; m++) {
-      tipsHTML += `
-        <div class="d-flex align-items-center p-2 mb-3 rounded-2 fs-3">
-          <i class="fa-solid fa-circle-check text-success me-2"></i>
-          <span class="text-black small mt-1">${recipetodisplay.tips[m]}</span>
-        </div>
-      `;
-    }
-    tips_container.innerHTML = tipsHTML;
-  }
+    // 4. LocalStorage
+    localStorage.setItem('ContactList', JSON.stringify(ContactList));  
+
+    displayAllContacts();
+
+    resetFormAndModal();
+    Swal.fire({
+        icon:'success',
+        title:'Added Success',
+        text:'Contact has been saved successfully.',
+        timer:2000,
+        showConfirmButton:false
+        
+     });
+     return;
 }
 
-// 5. Add event listener
+function displayAllContacts(list) {
+    var CurrentList =list||ContactList;
+    var contactsContainer = document.getElementById("contactsContainer"); 
+    var EmptyState = document.getElementById("EmptyState");
+    var empty_favorit = document.getElementById("empty_favorit");
+    var empty_emergency = document.getElementById("empty_emergency");
+    countContact();
+    
+    if (CurrentList.length > 0) {
+        EmptyState.style.display = "none";
+        empty_favorit.style.display = "none";
+        empty_emergency.style.display = "none";
+    } else {
+        EmptyState.style.display = "block";
+        empty_favorit.style.display = "none";
+        empty_emergency.style.display = "none";
+    }
 
-  btn_try_another.addEventListener('click', DisplayRecipe);
+    var cartona = "";
+
+    for (var i = 0; i < CurrentList.length; i++) {
+        var contact = CurrentList[i];
+        var firstLetter = contact.name.charAt(0).toUpperCase();
+        
+        cartona += `
+            <div class="col-md-4 mb-3">
+                <div class="card p-3 shadow-sm border-0 rounded-4 position-relative h-100">                    
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="rounded-4 bg-primary text-white d-flex justify-content-center align-items-center me-3 fw-bold flex-shrink-0 shadow-sm" style="width: 50px; height: 50px; font-size: 20px;">
+                            ${firstLetter}
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1 fw-bold text-dark">${contact.name}</h5>
+                            <p class="mb-0 text-muted small"><i class="fa-solid fa-phone me-2 text-primary"></i>${contact.Phone}</p>
+                        </div>
+                    </div>
+
+                    <p class="mb-2 text-muted small"><i class="fa-solid fa-envelope me-2 text-secondary"></i>${contact.Email || 'No email provided'}</p>
+                    
+                    <p class="mb-3 text-muted small"><i class="fa-solid fa-location-dot me-2 text-success"></i>${contact.Address || 'No address provided'}</p>
+
+                    <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
+                        <span class="badge bg-light text-primary border px-3 py-2 rounded-pill">${contact.Group || 'Family'}</span>
+                        ${contact.emergency ? '<span class="badge bg-danger-subtle text-danger px-2 py-1"><i class="fa-solid fa-heart-pulse me-1"></i>Emergency</span>' : ''}
+                        ${contact.favorite ? '<span class="badge bg-warning-subtle text-warning px-2 py-1"><i class="fa-solid fa-star me-1"></i>Favorite</span>' : ''}
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-auto pt-3 border-top text-muted">
+                        <i style="cursor:pointer" class="${contact.favorite ? 'fa-solid text-warning' : 'fa-regular'} fa-star " title="Favorite" onclick="toggleFavorite(${i})"></i>
+                        
+                        <i style="cursor:pointer" class="fa-solid fa-heart-pulse  ${contact.emergency ? 'text-danger' : ''}" title="Emergency" onclick="toggleEmergency(${i})"></i>
+                        
+                        <i style="cursor:pointer" class="fa-solid fa-pen " title="Edit" onclick="updateContact(${i})"></i>
+                        <i class="fa-solid fa-trash text-danger" style="cursor:pointer" title="Delete" onclick="deleteContact(${i})"></i>
+                    </div>
+
+                </div>
+            </div>
+        `;
+    }
+
+    contactsContainer.innerHTML = cartona;
+}
+
+function countContact(){
+    var TotalCount = ContactList.length;
+    var FavoritCount = 0;
+    var EmergencyCount = 0;
+    var Favorites_side = document.getElementById("list_favourit");   
+    var Emergency_side = document.getElementById("list_emergency"); 
+    var side_fav = '';
+    var side_emerg = '';
+
+    for(var i = 0; i < ContactList.length; i++) {
+        if(ContactList[i].favorite) {
+            FavoritCount++;
+            side_fav += `<div class="py-2">
+                      <small class="bg-warning p-2 rounded-2 text-dark ">${ContactList[i].name}</small>
+                      <small class=" text-black ps-2 rounded-2 " >${ContactList[i].Phone}</small></div>`;
+        }
+        if(ContactList[i].emergency) {   
+            EmergencyCount++;
+            side_emerg += `<div class="py-2">
+                      <small class="bg-danger p-2 rounded-2 text-light ">${ContactList[i].name}</small>
+                      <small class=" text-black ps-2 rounded-2 " >${ContactList[i].Phone}</small></div>`;
+        }
+    }
+
+    var statarray = document.querySelectorAll(".stat-card h4");
+    if(statarray.length >= 3){
+        statarray[0].innerHTML = TotalCount;
+        statarray[1].innerHTML = FavoritCount;
+        statarray[2].innerHTML = EmergencyCount;
+    }    
+    if (Favorites_side) Favorites_side.innerHTML = side_fav;
+    if (Emergency_side) Emergency_side.innerHTML = side_emerg;
+}
+
+function deleteContact(index) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do You want to delete this contact!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            ContactList.splice(index, 1);
+            localStorage.setItem('ContactList', JSON.stringify(ContactList));
+            displayAllContacts();
+
+            Swal.fire(
+                'Deleted!',
+                'Your contact has been deleted.',
+                'success'
+            );
+        }
+    });
+}
+
+function updateContact(index) {
+    currentIndex = index; 
+    var contact = ContactList[index];
+
+    contactNameInput.value = contact.name;
+    contactPhoneInput.value = contact.Phone;
+    contactEmailInput.value = contact.Email;
+    contactAddressInput.value = contact.Address;
+    contactGroupInput.value = contact.Group;
+    contactNotesInput.value = contact.Notes;
+    document.getElementById('isFavorite').checked = contact.favorite;
+    document.getElementById('isEmergency').checked = contact.emergency;
+
+    var saveBtn = document.getElementById("saveContactBtn");
+    if (saveBtn) saveBtn.innerHTML = "Update Contact";
+
+    var modalElement = document.getElementById('addContactModal');
+    var modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+    modalInstance.show();
+}
+
+function resetFormAndModal() {
+    document.getElementById("addContactForm").reset();
+    currentIndex = null;
+
+    var saveBtn = document.getElementById("saveContactBtn");
+    if (saveBtn) saveBtn.innerHTML = "Add Contact";
+
+    var modalElement = document.getElementById('addContactModal');
+    var modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (modalInstance) {
+        modalInstance.hide();
+    }
+}
+function toggleFavorite(index) {
+    ContactList[index].favorite = !ContactList[index].favorite;
+    if (ContactList[index].favorite) {
+        ContactList[index].emergency = false; 
+    }
+    
+    localStorage.setItem('ContactList', JSON.stringify(ContactList));
+    displayAllContacts();
+}
+
+function toggleEmergency(index) {
+    ContactList[index].emergency = !ContactList[index].emergency;
+    if (ContactList[index].emergency) {
+        ContactList[index].favorite = false; 
+    }
+    
+    localStorage.setItem('ContactList', JSON.stringify(ContactList));
+    displayAllContacts();
+}
+
+function searchByname_phone_email()
+{
+    console.log('hiiiiiii');
+    var searchList = [];
+
+    for (var i = 0; i < ContactList.length; i++) {
+         
+        var Namesearch=ContactList[i].name.toLowerCase().includes(searchInput.value.toLowerCase());
+        var Phonesearch=ContactList[i].Phone.toLowerCase().includes(searchInput.value.toLowerCase());
+        var Mailsearch=ContactList[i].Email&&ContactList[i].Email.toLowerCase().includes(searchInput.value.toLowerCase());
+        if (Namesearch||Phonesearch||Mailsearch) {
+            
+            searchList.push(ContactList[i])
+        }
+
+    }
+    console.log(searchList);
+    displayAllContacts(searchList);
+
+    
+}
+
+
+
+function validateContact(element) {
+    var regex = {
+        contactNameInput: /^[a-zA-Zء-ي\s]{3,}$/, 
+        contactPhoneInput: /^[0-9]{8,15}$/,    
+        contactEmailInput: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        contactAddressInput: /^.*$/,
+        contactNotesInput: /^.*$/
+    };
+
+    var value = element.value.trim();
+
+    var isOptional = (element.id === 'contactEmailInput' || element.id === 'contactAddressInput' || element.id === 'contactNotesInput');
+    if (isOptional && value === "") {
+        element.classList.remove('is-invalid', 'is-valid');
+        
+        if (element.nextElementSibling && element.nextElementSibling.classList.contains('d-block')) {
+            element.nextElementSibling.classList.replace('d-block', 'd-none');
+        }
+        return true;
+    }
+
+    if (regex[element.id] && regex[element.id].test(value)) {
+        if (element.nextElementSibling && element.nextElementSibling.classList.contains('d-block')) {
+            element.nextElementSibling.classList.replace('d-block', 'd-none');
+        }
+        if (element.classList.contains('is-invalid')) {
+            element.classList.remove('is-invalid');
+        }
+        element.classList.add('is-valid');
+        return true;
+    } else {
+        if (element.classList.contains('is-valid')) {
+            element.classList.remove('is-valid');
+        }
+        element.classList.add('is-invalid');
+        
+        if (element.nextElementSibling && element.nextElementSibling.classList.contains('d-none')) {
+            element.nextElementSibling.classList.replace('d-none', 'd-block');
+        }
+        return false;
+    }
+}
+
+

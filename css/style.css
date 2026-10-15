@@ -1,182 +1,141 @@
 /* navbar */
 :root{
-  --main-color:#ff4e19;
+  --main-color:#5f35f9;
 }
-/* تنسيق أيقونة الشعار */
+
 .brand-icon {
   width: 45px;
   height: 45px;
-  background-color: var(--main-color); /* لون خلفية الأيقونة كما في التصميم */
+  background-color: var(--main-color); 
   font-size: 1.2rem;
 }
 
-/* إلغاء الخط السفلي عند التأشير على الشعار */
 .navbar-brand {
   text-decoration: none;
 }
 .nav-icon-link:hover {
   color: var(--main-color) !important;
 }
-
-
-/* section */
-.recipe-section{
-background-color: #fffceb;
-}
-.card
-{
-  height:auto;
-  padding-bottom: 20px;
-  
-}
-/* في الشاشات الصغيرة (الموبايل): إعطاء ارتفاع ثابت للصورة لتأخذ مساحتها وتظهر التفاصيل تحتها */
-.recipe-img-container {
-  height: 380px; 
-}
-
-.custom-scroll{
-  max-height: 250px;
-  overflow-y: auto;
-   background-color: #fffceb;
-}
-/* في الشاشات الكبيرة (ابتداءً من اللابتوب): الصورة تأخذ 100% من ارتفاع العمود */
-@media (min-width: 768px) {
-  .recipe-img-container {
-    height: 100%;
-    min-height: 450px;
-  }
-}
-/* ارتفاع ومظهر الصورة */
-.recipe-img {
-  height:  max-content;
-}
-
-/* الأيقونات الدائرية للوقت والوجبات */
-.icon-circle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-}
-
-/* أرقام المكونات الدائرية البرتقالية */
-.ingredient-number {
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f39c12 !important;
-  color: white !important;
-  font-size: 0.75rem;
-}
-
-/* تخصيص زر الـ Tab المفعّل */
-.nav-tabs .nav-link.active {
-  color: #e74c3c !important;
-}
-
-/* تنسيق التبويب المفعّل (Active Tab) */
-.nav-tabs .nav-link {
-  position: relative;
-  transition: color 0.2s ease;
-}
-
-.nav-tabs .nav-link.active {
-  color: #e65100 !important; /* لون النص البرتقالي */
-}
-
-/* خط برتقالي تحت التبويب المفعّل */
-.nav-tabs .nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #e65100;
-  border-radius: 2px;
-}
-
-/* تصميم الدوائر البرتقالية للأرقام */
-.step-number {
-  width: 28px;
-  height: 28px;
-  background-color: #e67e22 !important;
-  color: white !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  font-weight: bold;
-}
-
-/* التمرير (Scroll) */
-.custom-scroll {
-  max-height: 250px;
-  overflow-y: auto;
-}
-.custom-scroll2 {
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-/* تنسيق مربعات الأيقونات الغذائية */
-.nutri-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-}
-
-/* لون مخصص للأيقونة البنفسجية (Sodium) */
-.text-purple {
-  color: #6f42c1 !important;
-}
-
-.bg-purple {
-  background-color: #6f42c1 !important;
-}
-
-#tips div{
- 
-  background-color: #fffceb;
-  border:4px solid #e67e22;
-  border-top: 0;
-  border-bottom: 0;
-  border-right: 0;
-}
-#tips i{
-  padding-right: 3px;
+.navbar span{
   color: var(--main-color);
 }
-#tips span{
-   color: gray !important;
+.navbar .btn-add{
+  background-color: var(--main-color);
+  color:white;
+
+  
 }
 
 
-/* تنسيق زر Try Another Recipe */
-.btn-try-another {
-  background-color:var(--main-color); /* اللون البرتقالي المرجاني */
+body {
+  background-color: #f8f9fa;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Custom Card Styling */
+.stat-card {
   border: none;
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  background-color: #ffffff;
+  padding: 1rem;
 }
 
-/* تأثير عند التحويم بالماوس (Hover) */
-.btn-try-another:hover {
-  background-color: #d5552b;
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+/* Color Accents */
+.bg-blue-soft { 
+  background-color: #e8f0fe; 
+  color: #3b82f6; 
+}
+
+.bg-amber-soft { 
+  background-color: #fef3c7; 
+  color: #f59e0b; 
+}
+
+.bg-red-soft { 
+  background-color: #fee2e2; 
+  color: #ef4444; 
+}
+
+/* Custom Input Style */
+.search-input {
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding-left: 2.5rem;
+  background-color: #ffffff;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-container .bi-search {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+/* Sidebar/Right Column Cards */
+.side-card {
+  border: none;
+  border-radius: 16px;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.btn-purple {
+  background-color: #6366f1;
   color: white;
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(230, 103, 61, 0.3) !important;
+  border-radius: 10px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 500;
 }
 
-/* تأثير عند الضغط */
-.btn-try-another:active {
-  transform: translateY(0);
+.btn-purple:hover {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.empty-state {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* تخصيص لون الإطار والظل عند الضغط على القائمة لتناسب لون التطبيق */
+.custom-select-focus:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25);
+}
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+    .btn-add{
+      font-size: 0.8rem;
+      padding: 0.4rem 0.7rem !important;
+    }
 }

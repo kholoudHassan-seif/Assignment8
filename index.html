@@ -3,341 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What's For Dinner</title>
-     <link rel="stylesheet" href="css/all.min.css">
+    <title>ContactHub</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="js/main.js">
 </head>
 <body>
-    <div class="container">
 
-    </div>
-    
-            <!-- navbar -->
-   <nav id="navbar" class="navbar navbar-expand-lg fixed-top bg-light py-2 shadow-sm">
-  <div class="container">
-                                
-    <!-- Brand Section (Icon + Text) -->
-    <a class="navbar-brand d-flex align-items-center gap-3 text-decoration-none" href="#">
-      <!-- Icon Container -->
-      <div class="brand-icon d-flex align-items-center justify-content-center text-white rounded-circle">
-        <i class="fa-solid fa-utensils"></i>
-      </div>
+    <!-- navbar -->
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top bg-light py-2 shadow-sm">
+        <div class="container d-flex align-items-center justify-content-between">
+                    
+            <!-- Brand logo -->
+            <a class="navbar-brand d-flex align-items-center gap-3 text-decoration-none" href="#">
+              <!-- Icon Container -->
+              <div class="brand-icon d-flex align-items-center justify-content-center text-white rounded-2">
+                <i class="fa-solid fa-address-book"></i>
+              </div>
+              <!-- Text Container -->
+              <div class="d-flex flex-column">
+                <h1 class="h5 fw-bold mb-0 text-dark">Contact<span>Hub</span></h1>
+                <span class="small text-muted">Smart Contact Manager</span>
+              </div>
+            </a>
+
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+              <button class="btn btn-purple d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addContactModal">
+                <i class="bi bi-plus-lg"></i> + Add Contact
+              </button>
+               
+              <a href="#" class="nav-icon-link text-decoration-none text-dark d-none d-lg-flex align-items-center" title="Notifications">
+                <i class="fa-sharp-duotone fa-solid fa-bell"></i>
+              </a>
+               
+              <a href="#" class="nav-icon-link text-decoration-none text-dark d-none d-lg-flex align-items-center" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+              </a>
+
+              <a href="#" class="profile-avatar text-decoration-none text-dark d-flex align-items-center" title="Profile">
+                <img src="images/slider2 (1).jpg" alt="Profile" class="border border-2 rounded-2 object-fit-cover" width="45" height="45">
+              </a>
+            </div>
+
+        </div>
+    </nav>
+
+<!-- Modal: Add New Contact -->
+<div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow rounded-4">
       
-      <!-- Text Container -->
-      <div class="d-flex flex-column">
-        <h1 class="h5 fw-bold mb-0 text-dark">What's For Dinner</h1>
-        <span class="small text-muted">Your daily meal inspiration</span>
+      <!-- Modal Header -->
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold" id="addContactModalLabel">Add New Contact</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </a>
 
-    <!-- Toggler Button for Mobile -->
-    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <!-- Modal Body (Form) -->
+      <div class="modal-body py-4">
+        <form id="addContactForm">
+          
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="contactNameInput" class="form-label small fw-bold text-muted">Full Name</label>
+            <input type="text" oninput="validateContact(this)" class="form-control rounded-3" id="contactNameInput" placeholder="Enter full name" required>
+            <div class="text-danger small d-none mt-1">Name must be at least 3 characters.</div>
+          </div>
 
-    <!-- Navigation Links & Profile -->
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 mt-3 mt-lg-0 py-2 py-lg-0">
+          <!-- Phone Number -->
+          <div class="mb-3">
+            <label for="contactPhoneInput" class="form-label small fw-bold text-muted">Phone Number</label>
+            <input type="tel" oninput="validateContact(this)" class="form-control rounded-3" id="contactPhoneInput" placeholder="Enter phone number" required>
+            <div class="text-danger small d-none mt-1">Please enter a valid phone number (8-15 digits).</div>
+          </div>
 
-        <!-- Bookmark (Filled) -->
-        <a href="#" class="nav-icon-link text-decoration-none  text-dark d-flex align-items-center gap-2" title="Saved Recipes">
-          <i class="fa-solid fa-bookmark fs-5"></i>
-          <span class="d-lg-none text-secondary">Saved Recipes</span>
-        </a>
+          <!-- Email Address -->
+          <div class="mb-3">
+            <label for="contactEmailInput" class="form-label small fw-bold text-muted">Email Address</label>
+            <input type="email" oninput="validateContact(this)" class="form-control rounded-3" id="contactEmailInput" placeholder="Enter email address">
+            <div class="text-danger small d-none mt-1">Please enter a valid email address.</div>
+          </div>
 
-        <!-- History / Rotate Counter-clockwise -->
-        <a href="#" class="nav-icon-link text-decoration-none  text-dark d-flex align-items-center gap-2" title="Recent">
-          <i class="fa-solid fa-rotate-left fs-5"></i>
-          <span class="d-lg-none text-secondary">Recent</span>
-        </a>
+          <!-- Address -->
+          <div class="mb-3">
+            <label for="contactAddressInput" class="form-label small fw-bold text-muted">Address</label>
+            <input type="text" oninput="validateContact(this)" class="form-control rounded-3" id="contactAddressInput" placeholder="Enter address">
+          </div>
 
-        <!-- Settings (Gear) -->
-        <a href="#" class="nav-icon-link text-decoration-none  text-dark d-flex align-items-center gap-2" title="Settings">
-          <i class="fa-solid fa-gear fs-5"></i>
-          <span class="d-lg-none text-secondary">Settings</span>
-        </a>
+          <!-- Group -->
+          <div class="mb-3">
+            <label for="contactGroup" class="form-label fw-semibold">Group</label>
+            <select class="form-select custom-select-focus" id="contactGroup" aria-label="Select a group">
+              <option selected disabled>Select a group</option>
+              <option value="family">Family</option>
+              <option value="friends">Friends</option>
+              <option value="work">Work</option>
+              <option value="school">School</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
 
-        <!-- Profile Avatar -->
-        <a href="#" class="profile-avatar text-decoration-none  text-dark d-flex align-items-center gap-2">
-          <img src="images/slider2 (1).jpg" alt="Profile" class="rounded-circle border border-2 border-warning object-fit-cover" width="35" height="35">
-          <span class="d-lg-none text-secondary">Profile</span>
-        </a>
+          <!-- Notes -->
+          <div class="mb-3">
+            <label for="contactNotesInput" class="form-label small fw-bold text-muted">Notes</label>
+            <input type="text" oninput="validateContact(this)" class="form-control rounded-3 p-3" id="contactNotesInput" placeholder="Add Notes about this contact">
+          </div>  
 
+          <!-- Checkboxes Options -->
+          <div class="d-flex gap-4 mt-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" value="Favorite" name="ContactType" id="isFavorite">
+              <label class="form-check-label small" for="isFavorite">
+                Add to Favorites
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="ContactType" value="Emergency" id="isEmergency">
+              <label class="form-check-label small" for="isEmergency">
+                Emergency Contact
+              </label>
+            </div>
+          </div>
+        </form>
+     
+        <!-- Modal Footer -->
+        <div class="modal-footer  w-100 border-0 gap-3 pt-2">
+          <button type="button" class="btn btn-light rounded-3 flex-grow-1" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="saveContactBtn" onclick="AddContact();" class="btn flex-grow-1 btn-purple rounded-3">Save Contact</button>
+        </div>
+     
       </div>
+
     </div>
-
   </div>
-   </nav>
+</div>
 
-<section class="recipe-section py-5 mt-5">
-  <div class="container">
-    <div class="card border-0 shadow-sm rounded-4 bg-white">
-      <div class="row ">
-            <!-- left side -->
-        <div class="col-md-5 col-lg-4">
-        <!-- recipe-img-container  -->
-        <div class="recipe-img-container position-relative rounded-4 overflow-hidden">
-            
-            <img src="images/hero-img.png" alt="Lasagna Bolognese" class="recipe-img w-100 h-100 object-fit-cover position-absolute top-0 start-0">
-
-            <!-- rating -->
-            <div class="position-absolute top-0 start-0 m-3 bg-white bg-opacity-90 px-3 py-1 rounded-pill shadow-sm d-flex align-items-center gap-1 z-1">
-            <i class="fa-solid fa-star text-warning"></i>
-            <span class="fw-bold small rating">4.9</span>
-            <span class="text-muted small">(478 reviews)</span>
-            </div>
-
-            <!-- times-->
-            <div class="position-absolute bottom-0 start-0 end-0 m-3 p-3 bg-white bg-opacity-90 rounded-4 shadow-sm z-1">
-            <div class="row text-center g-0">
-                <div class="col-4 border-end">
-                <div class="icon-circle bg-warning bg-opacity-10 text-warning mx-auto mb-1">
-                    <i class="fa-regular fa-clock"></i>
-                </div>
-                <small class="prepTime text-muted d-block style-sub-text">Prep time</small>
-                <span class="fw-bold small">30 min</span>
-                </div>
-                <div class="col-4 border-end">
-                <div class="icon-circle bg-danger bg-opacity-10 text-danger mx-auto mb-1">
-                    <i class="fa-solid fa-fire"></i>
-                </div>
-                <small class= " cookTime text-muted d-block style-sub-text">Cook time</small>
-                <span class="fw-bold small">90 min</span>
-                </div>
-                <div class="col-4">
-                <div class="icon-circle bg-info bg-opacity-10 text-info mx-auto mb-1">
-                    <i class="fa-solid fa-user-group"></i>
-                </div>
-                <small class="servings text-muted d-block style-sub-text">Servings</small>
-                <span class="fw-bold small">4 people</span>
-                </div>
-            </div>
-            </div>
-
-        </div>
-        </div>
-
-        <!-- right side-->
-        <div class="col-md-8  p-5">
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <!-- Badges -->
-            <div class="d-flex gap-2 mb-2 pt-4">
-              <span class="badge bg-success bg-opacity-10 text-success fw-normal px-2 py-1 badge1">Intermediate</span>
-              <span class="badge bg-primary bg-opacity-10 text-primary fw-normal px-2 py-1 badge2">Mediterranean</span>
-            </div>
-            <!-- Action Buttons -->
-            <div class="d-flex gap-2">
-              <button class="btn btn-light  mt-4 p-2 bg-warning shadow-sm border" title="Bookmark"><i class="fa-regular fa-bookmark text-danger"></i></button>
-              <button class="btn btn-light bg-warning p-2 mt-4 shadow-sm border" title="Share"><i class="fa-solid fa-share-nodes text-muted"></i></button>
+    <!-- Main Content Area -->
+  <div class="container px-4 pt-5 mt-5">
+    <div class="row g-4">
+      
+      <!-- Left / Main Section -->
+      <div class="col-lg-8">
+        
+        <!-- Top Stats Row -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="stat-card d-flex align-items-center gap-3">
+              <div class="icon-box bg-blue-soft">
+                <i class="fa-solid fa-users fs-4"></i>
+              </div>
+              <div>
+                <span class="text-uppercase text-muted fw-bold" style="font-size: 0.75rem;">TOTAL</span>
+                <h4 class="mb-0 fw-bold">0</h4>
+              </div>
             </div>
           </div>
 
-          <!-- Title & Description -->
-          <h2 class="fw-bold mb-1 title">Lasagna Bolognese</h2>
-          <p class="text-muted small mb-3 description">Layered Italian pasta with rich meat sauce and béchamel</p>
-
-          <!-- Warning Alert -->
-          <div class="alert alert-danger border-0 bg-danger bg-opacity-10 text-danger rounded-3 d-flex align-items-center gap-2 py-2 px-3 mb-4">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <div class="small">
-              <strong>Extended Preparation Time:</strong> This recipe requires more than 45 minutes to prepare. Plan accordingly!
+          <div class="col-md-4">
+            <div class="stat-card d-flex align-items-center gap-3">
+              <div class="icon-box bg-amber-soft">
+                <i class="fa-solid fa-star fs-4"></i>
+              </div>
+              <div>
+                <span class="text-uppercase text-muted fw-bold" style="font-size: 0.75rem;">FAVORITES</span>
+                <h4 class="mb-0 fw-bold">0</h4>
+              </div>
             </div>
           </div>
 
-         <!-- Nav Tabs -->
-            <ul class="nav nav-tabs border-0 mb-3 gap-3" id="recipeTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active border-0 bg-transparent text-secondary fw-semibold px-0" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab">
-                <i class="fa-solid fa-list-ul me-1"></i> Ingredients
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link border-0 bg-transparent text-secondary fw-semibold px-0" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab">
-                <i class="fa-solid fa-book-open me-1"></i> Instructions
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link border-0 bg-transparent text-secondary fw-semibold px-0" id="nutrition-tab" data-bs-toggle="tab" data-bs-target="#nutrition" type="button" role="tab">
-                <i class="fa-solid fa-chart-pie me-1"></i> Nutrition
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link border-0 bg-transparent text-secondary fw-semibold px-0" id="tips-tab" data-bs-toggle="tab" data-bs-target="#tips" type="button" role="tab">
-                <i class="fa-solid fa-lightbulb me-1"></i> Chef's Tips
-                </button>
-            </li>
-            </ul>
-
-        <!-- Tab Content  -->
-            <div class="tab-content" id="recipeTabContent">
-            
-            <!-- 1.   (Ingredients) -->
-                        <div class="tab-pane fade show active custom-scroll pe-2" id="ingredients" role="tabpanel">
-                            <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">1</span> 200g rice noodles</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">2</span> 200g shrimp, peeled</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">3</span> 2 eggs</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">4</span> 3 tablespoons tamarind paste</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">5</span> 2 tablespoons fish sauce</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">6</span> 1 tablespoon palm sugar</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">7</span> Bean sprouts</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">8</span> Crushed peanuts</li>
-                            <li class="d-flex align-items-center gap-2"><span class="badge rounded-circle step-number">9</span> Lime wedges and cilantro</li>
-                            </ul>
-                        </div>
-
-            <!-- 2.   (Instructions) -->
-                        <div class="tab-pane fade custom-scroll2  pe-2" id="instructions" role="tabpanel">
-                            <ol class="list-unstyled d-flex flex-column gap-3 mb-0">
-                            <li class="d-flex align-items-center gap-3">
-                                <span class="badge p-4 rounded-2 step-number flex-shrink-0">1</span>
-                                <span class="text-black small mt-1">Soak rice noodles in warm water for 30 minutes. Drain and set aside.</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-3">
-                                <span class="badge p-4 rounded-2 step-number flex-shrink-0">2</span>
-                                <span class="text-black small mt-1">Mix tamarind paste, fish sauce, and palm sugar to make the sauce.</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-3">
-                                <span class="badge p-4 rounded-2 step-number flex-shrink-0">3</span>
-                                <span class="text-black small mt-1">Heat wok over high heat. Scramble eggs and set aside.</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-3">
-                                <span class="badge p-4 rounded-2 step-number flex-shrink-0">4</span>
-                                <span class="text-black small mt-1">Cook shrimp until pink. Add noodles and sauce, toss for 2-3 minutes.</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-3">
-                                <span class="badge p-4 rounded-2 step-number flex-shrink-0">5</span>
-                                <span class="text-black small mt-1">Add scrambled eggs and bean sprouts. Toss everything together.</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-3">
-                                <span class="badge p-4 rounded-2 step-number flex-shrink-0">6</span>
-                                <span class="text-black small mt-1">Serve topped with crushed peanuts, lime wedges, and cilantro.</span>
-                            </li>
-                            </ol>
-                        </div>
-            <!-- 3.Nutrition -->
-                <!-- 3. محتوى القيم الغذائية (Nutrition) -->
-                            <div class="tab-pane  fade  pe-2" id="nutrition" role="tabpanel">
-                            <div class="row g-3">
-
-                                <!-- Calories -->
-                                <div class="col-6">
-                                <div class="p-2 rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                    <div class="nutri-icon bg-danger bg-opacity-10 text-danger">
-                                        <i class="fa-solid fa-fire"></i>
-                                    </div>
-                                    <span class="text-secondary small fw-medium">Calories</span>
-                                    </div>
-                                    <span class="fw-bold text-dark small">540 kcal</span>
-                                </div>
-                                </div>
-
-                                <!-- Protein -->
-                                <div class="col-6">
-                                <div class="p-2 rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                    <div class="nutri-icon bg-primary bg-opacity-10 text-primary">
-                                        <i class="fa-solid fa-dumbbell"></i>
-                                    </div>
-                                    <span class="text-secondary small fw-medium">Protein</span>
-                                    </div>
-                                    <span class="fw-bold text-dark small">32g</span>
-                                </div>
-                                </div>
-
-                                <!-- Carbohydrates -->
-                                <div class="col-6">
-                                <div class="p-2 rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                    <div class="nutri-icon bg-warning bg-opacity-10 text-warning">
-                                        <i class="fa-solid fa-wheat-awn"></i>
-                                    </div>
-                                    <span class="text-secondary small fw-medium">Carbohydrates</span>
-                                    </div>
-                                    <span class="fw-bold text-dark small">62g</span>
-                                </div>
-                                </div>
-
-                                <!-- Fat -->
-                                <div class="col-6">
-                                <div class="p-2 rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                    <div class="nutri-icon bg-danger bg-opacity-10 text-danger">
-                                        <i class="fa-solid fa-droplet"></i>
-                                    </div>
-                                    <span class="text-secondary small fw-medium">Fat</span>
-                                    </div>
-                                    <span class="fw-bold text-dark small">16g</span>
-                                </div>
-                                </div>
-
-                                <!-- Fiber -->
-                                <div class="col-6">
-                                <div class="p-2 rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                    <div class="nutri-icon bg-success bg-opacity-10 text-success">
-                                        <i class="fa-solid fa-seedling"></i>
-                                    </div>
-                                    <span class="text-secondary small fw-medium">Fiber</span>
-                                    </div>
-                                    <span class="fw-bold text-dark small">4g</span>
-                                </div>
-                                </div>
-
-                                <!-- Sodium -->
-                                <div class="col-6">
-                                <div class="p-2 rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                    <div class="nutri-icon bg-purple bg-opacity-10 text-purple">
-                                        <i class="fa-solid fa-cube"></i>
-                                    </div>
-                                    <span class="text-secondary small fw-medium">Sodium</span>
-                                    </div>
-                                    <span class="fw-bold text-dark small">1120mg</span>
-                                </div>
-                                </div>
-
-                            </div>
-                            </div>
-                <!--4.chef Tips   -->
-                        <div class="tab-pane fade   pe-2" id="tips" role="tabpanel">
-                                <div class="d-flex align-items-center   p-2 mb-3 rounded-2  fs-3">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span class="text-black small mt-1">Don't oversoak noodles or they'll be mushy</span>
-                                </div>
-                                <div class="d-flex align-items-center   p-2 mb-3 rounded-2  fs-3">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span class="text-black small mt-1">Cook on high heat for authentic wok flavor</span>
-                                </div>
-                                <div class="d-flex align-items-center   p-2 mb-3 rounded-2  fs-3">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span class="text-black small mt-1">Balance sweet, sour, and salty flavors</span>
-                                </div>
-                                <div class="d-flex align-items-center   p-2 mb-3 rounded-2  fs-3">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span class="text-black small mt-1">Prepare all ingredients before starting to cook</span>
-                                </div>
-                        </div>
+          <div class="col-md-4">
+            <div class="stat-card d-flex align-items-center gap-3">
+              <div class="icon-box bg-red-soft">
+                <i class="fa-solid fa-heart-pulse fs-4"></i>
+              </div>
+              <div>
+                <span class="text-uppercase text-muted fw-bold" style="font-size: 0.75rem;">EMERGENCY</span>
+                <h4 class="mb-0 fw-bold">0</h4>
+              </div>
             </div>
+          </div>
+        </div>
 
-                    <hr class="my-4 text-muted opacity-25">
-                    <!-- Try Another Recipe button -->
-                    <button type="button"  onclick="generateNewItem()" class="btn-try-another btn btn-try-another d-inline-flex align-items-center gap-2 px-4 py-2 text-white fw-medium rounded-3 shadow-sm">
-                    <i class="fa-solid fa-rotate text-white"></i>
-                    Try Another Recipe
-                    </button>
+        <!-- All Contacts Header & Search -->
+        <div class="mb-3">
+          <h3 class="fw-bold mb-1">All Contacts</h3>
+          <p class="text-muted small mb-3">Manage and organize your 0 contacts</p>
+          
+          <div id="search" class="search-container">
+            <i class="bi bi-search"></i>
+            <input type="text" oninput="searchByname_phone_email();" id="searchInput" class="form-control form-control-lg search-input fs-6" placeholder="Search by name, phone, or email...">
+          </div>
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="EmptyState" class="rounded-4 p-5 text-center empty-state border border-light mt-4">
+          <div class="bg-light text-secondary rounded-3 p-3 d-inline-block mb-3">
+            <i class="bi bi-person-bounding-box fs-3"></i>
+          </div>
+          <h6 class="fw-bold text-muted mb-1">No contacts found</h6>
+          <p class="text-muted fw-medium small">Click "Add Contact" to get started</p>
+        </div>
+        <div class="row" id="contactsContainer"></div>
+
+      </div>
+
+      <!-- Right Column (Sidebar Widgets) -->
+      <div class="col-lg-4">
+        
+        <!-- Favorites Card -->
+        <div id="Favorites-side-card" class="side-card mb-3">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="icon-box bg-amber-soft">
+                <i class="fa-solid fa-star fs-4"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-0">Favorites</h6>
+              <small class="text-muted">Quick access to starred contacts</small>
+            </div>
+          </div>
+          <div id="empty_favorit" class="text-center py-4 text-muted small">
+            No favorites yet
+          </div>
+          <div id="list_favourit"></div>
+        </div>
+
+        <!-- Emergency Card -->
+        <div class="side-card">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="icon-box bg-red-soft">
+                <i class="fa-solid fa-heart-pulse fs-4"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-0">Emergency</h6>
+              <small class="text-muted">Important contacts for urgent calls</small>
+            </div>
+          </div>
+          <div id="empty_emergency" class="text-center py-4 text-muted small">
+            No emergency contacts
+          </div>
+          <div id="list_emergency"></div>
         </div>
 
       </div>
+
     </div>
   </div>
-</section>
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
